@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: trustscore_db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: confidence_db
+    ports:
+      - "5442:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+  # Redis (for caching - makes app faster)
+  redis:
+    image: redis:7-alpine
+    container_name: trustscore_redis
+    ports:
+      - "6378:6379"
+
+volumes:
+  postgres_data:
